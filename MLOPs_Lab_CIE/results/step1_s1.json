@@ -1,0 +1,20 @@
+{
+  "experiment_name": "propval-rental-price",
+  "models": [
+    {
+      "name": "SVR",
+      "mae": 9741.066624951654,
+      "rmse": 12141.138034083338,
+      "r2": -0.23470248942882432
+    },
+    {
+      "name": "RandomForest",
+      "mae": 4785.696759999998,
+      "rmse": 5174.376238699313,
+      "r2": 0.7757360133243745
+    }
+  ],
+  "best_model": "RandomForest",
+  "best_metric_name": "rmse",
+  "best_metric_value": 5174.376238699313
+}

@@ -1,0 +1,8 @@
+{
+  "health_endpoint": "/heartbeat",
+  "predict_endpoint": "/estimate",
+  "port": 8000,
+  "health_response": {"status": "operational", "service": "PropVal API"},
+  "test_input": {"area_sqft": 1356.5, "bedrooms": 2, "floor_level": 6, "locality_score": 6.8},
+  "prediction": 28488.09
+}

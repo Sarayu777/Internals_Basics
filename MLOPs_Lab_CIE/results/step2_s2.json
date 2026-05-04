@@ -1,0 +1,13 @@
+{
+  "search_type": "grid",
+  "n_folds": 5,
+  "total_trials": 27,
+  "best_params": {
+    "max_depth": 10,
+    "min_samples_split": 2,
+    "n_estimators": 250
+  },
+  "best_mae": 4937.6539119999625,
+  "best_cv_mae": 9543.65664200001,
+  "parent_run_name": "tuning-propval"
+}
