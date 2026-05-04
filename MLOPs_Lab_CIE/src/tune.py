@@ -66,11 +66,15 @@ with mlflow.start_run(run_name="tuning-propval") as parent_run:
     print(f"Test MAE: {mae:.2f}, RMSE: {rmse:.2f}, R2: {r2:.4f}")
     print(f"CV MAE: {best_cv_mae:.2f}")
 
-# Save best tuned model
+# Save models
 os.makedirs("models", exist_ok=True)
+with open("models/tuned_model.pkl", "wb") as f:
+    pickle.dump(best_model, f)
+print("Saved models/tuned_model.pkl")
+
 with open("models/best_model.pkl", "wb") as f:
     pickle.dump(best_model, f)
-print("Tuned model saved to models/best_model.pkl")
+print("Saved models/best_model.pkl")
 
 # Save result JSON
 os.makedirs("results", exist_ok=True)

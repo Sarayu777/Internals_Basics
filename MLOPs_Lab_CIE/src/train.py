@@ -59,26 +59,34 @@ with mlflow.start_run(run_name="RandomForest"):
     results.append({"name": "RandomForest", "mae": mae, "rmse": rmse, "r2": r2})
     print(f"RandomForest -> MAE: {mae:.2f}, RMSE: {rmse:.2f}, R2: {r2:.4f}")
 
-# Save best model
+# Best model
 best = min(results, key=lambda x: x["rmse"])
 print(f"\nBest model: {best['name']} with RMSE: {best['rmse']:.2f}")
 
-# Save best model to disk
-df2 = pd.read_csv("data/training_data.csv")
-X2 = df2[["area_sqft", "bedrooms", "floor_level", "locality_score"]]
-y2 = df2["rental_price"]
-X_train2, X_test2, y_train2, y_test2 = train_test_split(
-    X2, y2, test_size=0.2, random_state=42
-)
-if best["name"] == "RandomForest":
-    best_model = RandomForestRegressor(n_estimators=100, random_state=42)
-else:
-    best_model = SVR(kernel="rbf", C=1.0, epsilon=0.1)
-best_model.fit(X_train2, y_train2)
 os.makedirs("models", exist_ok=True)
+
+# Save SVR model
+svr_model = SVR(kernel="rbf", C=1.0, epsilon=0.1)
+svr_model.fit(X_train, y_train)
+with open("models/svr_model.pkl", "wb") as f:
+    pickle.dump(svr_model, f)
+print("Saved models/svr_model.pkl")
+
+# Save RandomForest model
+rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
+rf_model.fit(X_train, y_train)
+with open("models/rf_model.pkl", "wb") as f:
+    pickle.dump(rf_model, f)
+print("Saved models/rf_model.pkl")
+
+# Save best model
+if best["name"] == "RandomForest":
+    best_model = rf_model
+else:
+    best_model = svr_model
 with open("models/best_model.pkl", "wb") as f:
     pickle.dump(best_model, f)
-print("Best model saved to models/best_model.pkl")
+print("Saved models/best_model.pkl")
 
 # Save result JSON
 os.makedirs("results", exist_ok=True)
